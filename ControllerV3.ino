@@ -14,32 +14,32 @@ void processReceivedValues(String receivedString) {
     Mouse.move(intValue[1], intValue[2]);
   }
 
-  if (val1 == 1) {
+  if (intValue[0] == 1) {
     MouseTo.setTarget(intValue[1], intValue[2]);
     while (MouseTo.move() == false) {}
   }
-  if (val1 == 2) {
+  if (intValue[0] == 2) {
     Mouse.move(intValue[1], intValue[2]);
   }
-  if (val1 == 3) {
+  if (intValue[0] == 3) {
     Mouse.click();
   }
-  if (val1 == 4) {
+  if (intValue[0] == 4) {
     Mouse.press();
   }
-  if (val1 == 5) {
+  if (intValue[0] == 5) {
     Mouse.release();
   }
-  if (val1 == 6) {
+  if (intValue[0] == 6) {
     Keyboard.write(intValue[3]);
   }
-  if (val1 == 7) {
+  if (intValue[0] == 7) {
     Keyboard.press(intValue[4]);
   }
-  if (val1 == 8) {
+  if (intValue[0] == 8) {
     Keyboard.releaseAll();
   }
-  if (val1 == 9) {
+  if (intValue[0] == 9) {
     Mouse.moveABS(intValue[1], intValue[2]);
   }
 
