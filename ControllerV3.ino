@@ -1,4 +1,4 @@
-#include <Mouse.h> // Include the Mouse library for mouse functions
+#include <Mouse.h>
 #include <MouseTo.h>
 #include <Keyboard.h>
 
@@ -9,59 +9,48 @@ void processReceivedValues(String receivedString) {
   // Use sscanf to parse the values from the string
   sscanf(receivedString.c_str(), "%d %d %d %d %d", &intValue[0], &intValue[1], &intValue[2], &intValue[3], &intValue[4]);
 
-  // Move the mouse based on the received values
-  if (intValue[0] == 6) {
-    Mouse.move(intValue[1], intValue[2]);
-  }
+  // Print the received values to the serial monitor (uncomment if needed)
+  // Serial.print("Received values: ");
+  // for (int i = 0; i < 5; i++) {
+  //   Serial.print(intValue[i]);
+  //   Serial.print(" ");
+  // }
+  // Serial.println();
 
+  // Move the mouse or perform keyboard actions based on the received values
   if (intValue[0] == 1) {
     MouseTo.setTarget(intValue[1], intValue[2]);
-    while (MouseTo.move() == false) {}
-  }
-  if (intValue[0] == 2) {
+    while (!MouseTo.move()) {}
+  } else if (intValue[0] == 2) {
     Mouse.move(intValue[1], intValue[2]);
-  }
-  if (intValue[0] == 3) {
+  } else if (intValue[0] == 3) {
     Mouse.click();
-  }
-  if (intValue[0] == 4) {
+  } else if (intValue[0] == 4) {
     Mouse.press();
-  }
-  if (intValue[0] == 5) {
+  } else if (intValue[0] == 5) {
     Mouse.release();
-  }
-  if (intValue[0] == 6) {
+  } else if (intValue[0] == 6) {
     Keyboard.write(intValue[3]);
-  }
-  if (intValue[0] == 7) {
+  } else if (intValue[0] == 7) {
     Keyboard.press(intValue[4]);
-  }
-  if (intValue[0] == 8) {
+  } else if (intValue[0] == 8) {
     Keyboard.releaseAll();
-  }
-  if (intValue[0] == 9) {
+  } else if (intValue[0] == 9) {
     Mouse.moveABS(intValue[1], intValue[2]);
+  } 
+  // Add more conditions if needed
+  else {
+    // Handle unknown values
   }
-
-  // Print the received values to the serial monitor
-  Serial.print("Received values: ");
-  for (int i = 0; i < 5; i++) {
-    Serial.print(intValue[i]);
-    Serial.print(" ");
-  }
-  Serial.println();
 }
 
 void setup() {
-  Serial.begin(128000); // Make sure to match the baud rate with your C# program
+  Serial.begin(128000);
   Keyboard.begin();
   Mouse.begin();
-  //MouseTo.setScreenResolution(1680, 1050);
   MouseTo.setScreenResolution(2560, 1440);
-  //MouseTo.setCorrectionFactor(.9445); //for MouseTo
-  MouseTo.setCorrectionFactor(.4745); //for MouseTo
-  //Mouse.init(1680, 1050); //for MouseASB
-  Mouse.init(2560, 1440); //for MouseASB
+  MouseTo.setCorrectionFactor(.4745);
+  Mouse.init(2560, 1440);
 }
 
 void loop() {
